@@ -36,10 +36,10 @@
 
   <target name="phploc" description="messure projectsize with PHPLOC">
     <exec executable="phploc">
-      <arg value="--count-test" />
+      <arg value="--count-tests" />
       <arg value="--log-csv" />
-      <arg value="${basdir}/build/logs/phploc.csv" />
-      <arg path="${basdir}/srv" />
+      <arg value="${basedir}/build/logs/phploc.csv" />
+      <arg path="${basedir}/src" />
     </exec>
   </target>
 
@@ -48,8 +48,7 @@
       <arg value="--report=checkstyle" />
       <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
       <arg value="--standard=${basedir}/build/phpcs/phpcs_ruleset.xml" />
-      <arg value="${basdir}/build/logs/phploc.csv" />
-      <arg path="${basdir}/src" />
+      <arg path="${basedir}/src" />
     </exec>
   </target>
 
@@ -58,23 +57,38 @@
       <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
       <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
       <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramide.svg" />
-      <arg path="${basdir}/src" />
+      <arg path="${basedir}/src" />
     </exec>
   </target>
 
   <target name="phpmd" description="checks codemess">
     <exec executable="phpmd">
-      <arg path="${basdir}/src" />
+      <arg path="${basedir}/src" />
       <arg value="xml" />
-      <arg value="${basedir}/build/pdepend/phpmd_ruleset.xml" />
+      <arg value="${basedir}/build/phpmd/phpmd_ruleset.xml" />
       <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramide.svg" />
     </exec>
   </target>
 
+  <target name="phpcpd" description="find douplicate code">
+    <exec executable="phpcpd">
+      <arg value="--log-pmd" />
+      <arg value="${basedir}/build/logs/pmd-cpd.xml"/>
+      <arg path="${basedir}/src"/>
+    </exec>
+  </target>
+
+  <target name="phpdox" description="Generate API Documentation">
+    <exec executable="phpdox" dir="${basedir}/build/phpdox">
+      <arg value="--file build/phpdox/phpdox.xml"/>
+
+    </exec>
+  </target>
 
   <target name="PHPUnit" description="Run PHP Unit">
     <exec executable="phpunit" failonerror="true">
-      <arg value="-c tests/phpunit.xml" />
+      <arg value="--configuration"/>
+      <arg value="${basedir}/tests/phpunit.xml"/>
     </exec>   
   </target>
 

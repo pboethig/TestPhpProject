@@ -1,62 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ruleset name="pcsg-generated-ruleset"
-         xmlns="http://pmd.sf.net/ruleset/1.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
-         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+<ruleset name="pcsg-generated-ruleset">
     <description>Created with the PHP Coding Standard Generator. http://edorian.github.com/php-coding-standard-generator/
     </description>
-    <rule ref="rulesets/codesize.xml/CyclomaticComplexity"/>
-    <rule ref="rulesets/codesize.xml/NPathComplexity"/>
-    <rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+    <rule ref="Generic.Classes.DuplicateClassName"/>
+    <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+    <rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop"/>
+    <rule ref="Generic.CodeAnalysis.ForLoopWithTestFunctionCall"/>
+    <rule ref="Generic.CodeAnalysis.JumbledIncrementer"/>
+    <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+    <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+    <rule ref="Generic.Commenting.Todo"/>
+    <rule ref="Generic.Commenting.Fixme"/>
+    <rule ref="Generic.ControlStructures.InlineControlStructure"/>
+    <rule ref="Generic.Debug.ClosureLinter"/>
+    <rule ref="Generic.Debug.JSHint"/>
+    <rule ref="Generic.Debug.CSSLint"/>
+    <rule ref="Generic.Files.ByteOrderMark"/>
+    <rule ref="Generic.Files.LineLength">
         <properties>
-            <property name="minimum" value="50"/>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="140"/>
         </properties>
     </rule>
-    <rule ref="rulesets/codesize.xml/ExcessiveClassLength">
-        <properties>
-            <property name="minimum" value="400"/>
-        </properties>
-    </rule>
-    <rule ref="rulesets/codesize.xml/ExcessiveParameterList">
-        <properties>
-            <property name="minimum" value="5"/>
-        </properties>
-    </rule>
-    <rule ref="rulesets/codesize.xml/TooManyFields"/>
-    <rule ref="rulesets/codesize.xml/TooManyMethods">
-        <properties>
-            <property name="maxmethods" value="40"/>
-        </properties>
-    </rule>
-    <rule ref="rulesets/codesize.xml/ExcessiveClassComplexity"/>
-    <rule ref="rulesets/controversial.xml"/>
-    <rule ref="rulesets/design.xml/ExitExpression"/>
-    <rule ref="rulesets/design.xml/EvalExpression"/>
-    <rule ref="rulesets/design.xml/GotoStatement"/>
-    <rule ref="rulesets/design.xml/NumberOfChildren"/>
-    <rule ref="rulesets/design.xml/DepthOfInheritance">
-        <properties>
-            <property name="minimum" value="4"/>
-        </properties>
-    </rule>
-    <rule ref="rulesets/design.xml/CouplingBetweenObjects"/>
-    <rule ref="rulesets/naming.xml/LongVariable">
-        <properties>
-            <property name="maximum" value="15"/>
-        </properties>
-    </rule>
-    <rule ref="rulesets/naming.xml/ShortMethodName">
-        <properties>
-            <property name="minimum" value="5"/>
-        </properties>
-    </rule>
-    <rule ref="rulesets/naming.xml/ConstructorWithNameAsEnclosingClass"/>
-    <rule ref="rulesets/naming.xml/ConstantNamingConventions"/>
-    <rule ref="rulesets/naming.xml/BooleanGetMethodName">
-        <properties>
-            <property name="checkParameterizedMethods" value="true"/>
-        </properties>
-    </rule>
-    <rule ref="rulesets/unusedcode.xml"/>
+    <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+    <rule ref="Generic.Formatting.SpaceAfterCast"/>
+    <rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman"/>
+    <rule ref="Generic.Metrics.CyclomaticComplexity"/>
+    <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
+    <rule ref="Generic.NamingConventions.CamelCapsFunctionName"/>
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+    <rule ref="Generic.PHP.ForbiddenFunctions"/>
+    <rule ref="Generic.PHP.NoSilencedErrors"/>
+    <rule ref="MySource.PHP.EvalObjectFactory"/>
+    <rule ref="MySource.PHP.GetRequestData"/>
+    <rule ref="MySource.PHP.ReturnFunctionValue"/>
+    <rule ref="PSR2.Classes.ClassDeclaration"/>
+    <rule ref="PSR2.ControlStructures.ControlStructureSpacing"/>
+    <rule ref="PSR2.Files.EndFileNewline"/>
+    <rule ref="PSR2.Methods.MethodDeclaration"/>
+    <rule ref="PSR2.Namespaces.NamespaceDeclaration"/>
+    <rule ref="PSR2.Namespaces.UseDeclaration"/>
+    <rule ref="Squiz.Commenting.FunctionComment" />
+    <rule ref="Squiz.Commenting.FunctionCommentThrowTag" />
+    <rule ref="Squiz.Commenting.ClassComment" />
+    <rule ref="Squiz.Commenting.FileComment" />
+    <rule ref="Squiz.Commenting.VariableComment" />
 </ruleset>

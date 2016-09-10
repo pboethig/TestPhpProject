@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="2.7.0">
+<file name="/var/www/html/lektionen/testPHPProject/src/Test.php">
+ <error line="1" column="1" severity="error" message="Missing file doc comment" source="Squiz.Commenting.FileComment.Missing"/>
+ <error line="4" column="1" severity="error" message="Missing class doc comment" source="Squiz.Commenting.ClassComment.Missing"/>
+ <error line="6" column="12" severity="error" message="Missing function doc comment" source="Squiz.Commenting.FunctionComment.Missing"/>
+ <error line="11" column="12" severity="error" message="Missing function doc comment" source="Squiz.Commenting.FunctionComment.Missing"/>
+ <error line="15" column="1" severity="error" message="Expected 1 newline at end of file; 0 found" source="PSR2.Files.EndFileNewline.NoneFound"/>
+</file>
+</checkstyle>
+
