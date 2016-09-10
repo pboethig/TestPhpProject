@@ -3,8 +3,15 @@
     "description": "a simple build testproject",
     "type": "project",
     "require": {
-        "symfony/console": "^3.1"
+        "symfony/console": "^3.1",
+        "phpunit/phpunit":"*",
+        "phpunit/phpunit-selenium":"*"
+
     },
+    "autoload":
+     {
+         "psr-0": {"":"src/"}
+     },
     "license": "MIT",
     "authors": [
         {

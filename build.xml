@@ -1,0 +1,90 @@
+<project name="Testproject" default="dist" basedir=".">
+  <description>
+    simple example build file
+  </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="dist" location="dist"/>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+    <mkdir dir="${basedir}/build/api"/>
+    <mkdir dir="${basedir}/build/coverage"/>
+    <mkdir dir="${basedir}/build/logs"/>
+    <mkdir dir="${basedir}/build/pdepend"/>
+    <mkdir dir="${basedir}/build/phpdox"/>
+  </target>
+
+  <target name="TEST" depends="init, Lint, PHPUnit"></target>
+
+
+  <target name="REPORT" depends="TEST, phploc,phpcs,pdepend,phpmd,phpcpd,phpdox"></target>
+
+
+  <target name="Lint" description="Lint Check (Syntax error check)">
+    <apply executable="php" failonerror="true">
+      <arg value="-l" />
+      <fileset dir="${basedir}/src">
+          <include name="**/*.php"/>
+      </fileset>
+    </apply>   
+  </target>
+
+  <target name="phploc" description="messure projectsize with PHPLOC">
+    <exec executable="phploc">
+      <arg value="--count-test" />
+      <arg value="--log-csv" />
+      <arg value="${basdir}/build/logs/phploc.csv" />
+      <arg path="${basdir}/srv" />
+    </exec>
+  </target>
+
+  <target name="phpcs" description="checks missing codestyles">
+    <exec executable="phpcs">
+      <arg value="--report=checkstyle" />
+      <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
+      <arg value="--standard=${basedir}/build/phpcs/phpcs_ruleset.xml" />
+      <arg value="${basdir}/build/logs/phploc.csv" />
+      <arg path="${basdir}/src" />
+    </exec>
+  </target>
+
+  <target name="pdepend" description="checks dependencies">
+    <exec executable="pdepend">
+      <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
+      <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
+      <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramide.svg" />
+      <arg path="${basdir}/src" />
+    </exec>
+  </target>
+
+  <target name="phpmd" description="checks codemess">
+    <exec executable="phpmd">
+      <arg path="${basdir}/src" />
+      <arg value="xml" />
+      <arg value="${basedir}/build/pdepend/phpmd_ruleset.xml" />
+      <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramide.svg" />
+    </exec>
+  </target>
+
+
+  <target name="PHPUnit" description="Run PHP Unit">
+    <exec executable="phpunit" failonerror="true">
+      <arg value="-c tests/phpunit.xml" />
+    </exec>   
+  </target>
+
+  <target name="dist">
+  </target>
+
+  <target name="clean"
+        description="clean up">
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+</project>
