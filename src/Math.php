@@ -1,8 +1,8 @@
 <?php
 
-namespace ;
+namespace TestPhpProject;
 
-Class Test
+Class Math
 {
     public function __construct()
     {

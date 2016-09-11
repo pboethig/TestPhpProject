@@ -8,6 +8,9 @@
         "phpunit/phpunit-selenium":"*"
 
     },
+    "autoload": {
+        "psr-4": {"TestPhpProject\\": "src/"}
+    },
     "license": "MIT",
     "authors": [
         {

@@ -1,17 +1,17 @@
 <?php
 
-use MyTest\Test;
+use TestPhpProject\Math;
 
-class UserTest extends \PHPUnit\Framework\TestCase
+class MathTest extends \PHPUnit\Framework\TestCase
 {
     // test the talk method
-    public function testTalk() {
+    public function testAdd() {
         // make an instance of the user
-        $user = new Test();
+        $math = new Math();
 
         // use assertEquals to ensure the greeting is what you
-        $expected = "Hello world!";
-        $actual = $user->talk();
+        $expected = 1;
+        $actual = $math->add(1,2);
         $this->assertEquals($expected, $actual);
     }
 }
