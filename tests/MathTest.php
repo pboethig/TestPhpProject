@@ -10,7 +10,7 @@ class MathTest extends \PHPUnit\Framework\TestCase
         $math = new Math();
 
         // use assertEquals to ensure the greeting is what you
-        $expected = 1;
+        $expected = 3;
         $actual = $math->add(1,2);
         $this->assertEquals($expected, $actual);
     }
