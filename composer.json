@@ -8,10 +8,6 @@
         "phpunit/phpunit-selenium":"*"
 
     },
-    "autoload":
-     {
-         "psr-0": {"":"src/"}
-     },
     "license": "MIT",
     "authors": [
         {
