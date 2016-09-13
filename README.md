@@ -10,6 +10,7 @@ init
   - phpcpd
   - dpend
   - phploc
+  - phpdox
 
 ### prerequisits
 - composer installed
