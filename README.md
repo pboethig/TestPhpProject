@@ -19,6 +19,4 @@ init
 ### usage:
 
 - clone project
-- run
-  ```sh 
-     ant REPORT
+- run "ant REPORT"
