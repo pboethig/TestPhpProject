@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="2.7.0">
-<file name="/var/www/html/lektionen/TestPhpProject/src/Math.php">
+<file name="/var/www/html/lektionen/testproject2/src/Math.php">
  <error line="1" column="1" severity="error" message="Missing file doc comment" source="Squiz.Commenting.FileComment.Missing"/>
  <error line="5" column="1" severity="error" message="Missing class doc comment" source="Squiz.Commenting.ClassComment.Missing"/>
  <error line="7" column="12" severity="error" message="Missing function doc comment" source="Squiz.Commenting.FunctionComment.Missing"/>
