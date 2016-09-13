@@ -86,7 +86,7 @@
   </target>
 
   <target name="PHPUnit" description="Run PHP Unit">
-    <exec executable="phpunit" failonerror="true">
+    <exec executable="${basedir}/vendor/bin/phpunit" failonerror="true">
       <arg value="--configuration"/>
       <arg value="${basedir}/phpunit.xml"/>
     </exec>   
