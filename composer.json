@@ -3,11 +3,22 @@
     "description": "a simple build testproject",
     "type": "project",
     "require": {
-        "symfony/console": "^3.1",
-        "phpunit/phpunit":"*",
-        "phpunit/phpunit-selenium":"*"
-
+        "symfony/console": "^3.1"
     },
+    "require-dev":{
+      "phpunit/phpunit":"*",
+      "phpunit/phpunit-selenium":"*",
+      "phpmd/phpmd":"@stable",
+      "phploc/phploc": "*",
+      "sebastian/phpcpd": "*",
+      "nikic/php-parser":"v3.0.0alpha1",
+      "theseer/fdomdocument":"*",
+      "theseer/phpdox": "0.9.0",
+      "pdepend/pdepend":"*",
+      "squizlabs/php_codesniffer": "2.*"
+
+      		
+    },	
     "autoload": {
         "psr-4": {"TestPhpProject\\": "src/"}
     },

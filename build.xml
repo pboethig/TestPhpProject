@@ -35,7 +35,7 @@
   </target>
 
   <target name="phploc" description="messure projectsize with PHPLOC">
-    <exec executable="phploc">
+    <exec executable="${basedir}/vendor/bin/phploc">
       <arg value="--count-tests" />
       <arg value="--log-csv" />
       <arg value="${basedir}/build/logs/phploc.csv" />
@@ -44,7 +44,7 @@
   </target>
 
   <target name="phpcs" description="checks missing codestyles">
-    <exec executable="phpcs">
+    <exec executable="${basedir}/vendor/bin/phpcs">
       <arg value="--report=checkstyle" />
       <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
       <arg value="--standard=${basedir}/build/phpcs/phpcs_ruleset.xml" />
@@ -53,7 +53,7 @@
   </target>
 
   <target name="pdepend" description="checks dependencies">
-    <exec executable="pdepend">
+    <exec executable="${basedir}/vendor/bin/pdepend">
       <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
       <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
       <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramide.svg" />
@@ -62,7 +62,7 @@
   </target>
 
   <target name="phpmd" description="checks codemess">
-    <exec executable="phpmd">
+    <exec executable="${basedir}/vendor/bin/phpmd">
       <arg path="${basedir}/src" />
       <arg value="xml" />
       <arg value="${basedir}/build/phpmd/phpmd_ruleset.xml" />
@@ -71,7 +71,7 @@
   </target>
 
   <target name="phpcpd" description="find douplicate code">
-    <exec executable="phpcpd">
+    <exec executable="${basedir}/vendor/bin/phpcpd">
       <arg value="--log-pmd" />
       <arg value="${basedir}/build/logs/pmd-cpd.xml"/>
       <arg path="${basedir}/src"/>
@@ -79,9 +79,7 @@
   </target>
 
   <target name="phpdox" description="Generate API Documentation">
-    <exec executable="phpdox" dir="${basedir}/build/phpdox">
-      <arg value="--file build/phpdox/phpdox.xml"/>
-
+    <exec executable="${basedir}/vendor/bin/phpdox">
     </exec>
   </target>
 
