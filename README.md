@@ -20,4 +20,5 @@ init
 ### usage:
 
 - clone project
-- run "ant REPORT"
+- run "ant init" to run tests and metrics
+- run "ant init package -DTAG_TO_BUILD=your_tag_id" to build a release in folder "releases"

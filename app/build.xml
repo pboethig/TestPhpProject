@@ -18,9 +18,12 @@
     <mkdir dir="${basedir}/build/logs"/>
     <mkdir dir="${basedir}/build/pdepend"/>
     <mkdir dir="${basedir}/build/phpdox"/>
+
+    <antcall target="REPORT" />
+
   </target>
 
-  <target name="TEST" depends="init, Lint, PHPUnit"></target>
+  <target name="TEST" depends="Lint, PHPUnit"></target>
 
 
   <target name="REPORT" depends="TEST, phploc,phpcs,pdepend,phpmd,phpcpd,phpdox"></target>
@@ -91,9 +94,15 @@
     </exec>   
   </target>
 
-  <target name="dist">
+
+   <target name="package" description="package the release">
+      <zip 
+	destfile="${basedir}/../release/release-${TAG_TO_BUILD}.zip"
+        basedir="." excludes="vendor/**, release/**"/>
   </target>
 
+  <target name="dist">
+  </target> 
   <target name="clean"
         description="clean up">
     <!-- Delete the ${build} and ${dist} directory trees -->
