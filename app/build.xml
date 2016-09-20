@@ -39,7 +39,17 @@
   </target>
 
   <target name="phploc" description="messure projectsize with PHPLOC">
-    <exec executable="${basedir}/vendor/bin/phploc">
+
+
+
+      <exec osfamily="unix" executable="${basedir}/vendor/bin/phploc">
+          <arg value="--count-tests" />
+          <arg value="--log-csv" />
+          <arg value="${basedir}/build/logs/phploc.csv" />
+          <arg path="${basedir}/src" />
+      </exec>
+
+      <exec osfamily="windows" executable="${basedir}/vendor/bin/phploc.bat">
       <arg value="--count-tests" />
       <arg value="--log-csv" />
       <arg value="${basedir}/build/logs/phploc.csv" />
@@ -47,53 +57,86 @@
     </exec>
   </target>
 
+
+
   <target name="phpcs" description="checks missing codestyles">
-    <exec executable="${basedir}/vendor/bin/phpcs">
+    <exec osfamily="windows" executable="${basedir}/vendor/bin/phpcs.bat">
       <arg value="--report=checkstyle" />
       <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
       <arg value="--standard=${basedir}/build/phpcs/phpcs_ruleset.xml" />
       <arg path="${basedir}/src" />
     </exec>
+
+      <exec osfamily="unix" executable="${basedir}/vendor/bin/phpcs">
+          <arg value="--report=checkstyle" />
+          <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
+          <arg value="--standard=${basedir}/build/phpcs/phpcs_ruleset.xml" />
+          <arg path="${basedir}/src" />
+      </exec>
   </target>
 
   <target name="pdepend" description="checks dependencies">
-    <exec executable="${basedir}/vendor/bin/pdepend">
+    <exec osfamily="windows" executable="${basedir}/vendor/bin/pdepend.bat">
       <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
       <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
       <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramide.svg" />
       <arg path="${basedir}/src" />
     </exec>
+      <exec osfamily="unix" executable="${basedir}/vendor/bin/pdepend">
+          <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
+          <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
+          <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramide.svg" />
+          <arg path="${basedir}/src" />
+      </exec>
   </target>
 
   <target name="phpmd" description="checks codemess">
-    <exec executable="${basedir}/vendor/bin/phpmd">
+    <exec osfamily="windows"  executable="${basedir}/vendor/bin/phpmd.bat">
       <arg path="${basedir}/src" />
       <arg value="xml" />
       <arg value="${basedir}/build/phpmd/phpmd_ruleset.xml" />
       <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramide.svg" />
     </exec>
+
+      <exec osfamily="unix"  executable="${basedir}/vendor/bin/phpmd">
+          <arg path="${basedir}/src" />
+          <arg value="xml" />
+          <arg value="${basedir}/build/phpmd/phpmd_ruleset.xml" />
+          <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramide.svg" />
+      </exec>
   </target>
 
   <target name="phpcpd" description="find douplicate code">
-    <exec executable="${basedir}/vendor/bin/phpcpd">
+    <exec osfamily="windows" executable="${basedir}/vendor/bin/phpcpd.bat">
       <arg value="--log-pmd" />
       <arg value="${basedir}/build/logs/pmd-cpd.xml"/>
       <arg path="${basedir}/src"/>
     </exec>
+      <exec osfamily="unix" executable="${basedir}/vendor/bin/phpcpd">
+          <arg value="--log-pmd" />
+          <arg value="${basedir}/build/logs/pmd-cpd.xml"/>
+          <arg path="${basedir}/src"/>
+      </exec>
   </target>
 
   <target name="phpdox" description="Generate API Documentation">
-    <exec executable="${basedir}/vendor/bin/phpdox">
+    <exec osfamily="windows" executable="${basedir}/vendor/bin/phpdox.bat">
     </exec>
+      <exec osfamily="unix" executable="${basedir}/vendor/bin/phpdox">
+      </exec>
+
   </target>
 
-  <target name="PHPUnit" description="Run PHP Unit">
-    <exec executable="${basedir}/vendor/bin/phpunit" failonerror="true">
+  <target  name="PHPUnit" description="Run PHP Unit">
+    <exec osfamily="unix" executable="${basedir}/vendor/bin/phpunit" failonerror="true">
       <arg value="--configuration"/>
       <arg value="${basedir}/phpunit.xml"/>
-    </exec>   
+    </exec>
+      <exec osfamily="windows" executable="${basedir}/vendor/bin/phpunit.bat" failonerror="true">
+          <arg value="--configuration"/>
+          <arg value="${basedir}/phpunit.xml"/>
+      </exec>
   </target>
-
 
    <target name="package" description="package the release">
       <zip 
