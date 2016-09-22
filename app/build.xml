@@ -1,4 +1,4 @@
-<project name="Testproject" default="dist" basedir=".">
+<project name="Testproject" default="dist" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
   <description>
     simple example build file
   </description>
@@ -7,9 +7,22 @@
   <property name="build" location="build"/>
   <property name="dist" location="dist"/>
 
-  <target name="init">
-    <!-- Create the time stamp -->
-    <tstamp/>
+<property name="mavenrepo.url" value="http://localhost:8082/content/groups/public/"/><!-- Ivy version this build wants to use -->
+<property name="ivy.version" value="2.2.0"/>
+<property name="ivy.url" value="http://central.maven.org/maven2/org/apache/ivy/ivy/2.2.0/ivy-2.2.0.jar"/>
+
+
+<target name="basic-clean">
+   <delete dir="target"/>
+   </target>
+<extension-point name="init" depends="clean">
+
+</extension-point>
+
+
+<target name="basic-init" extensionOf="init">
+<mkdir dir="${basedir}/.ant/lib"/>
+<tstamp/>
     <!-- Create the build directory structure used by compile -->
     <mkdir dir="${build}"/>
     <mkdir dir="${basedir}/build/api"/>
@@ -18,10 +31,26 @@
     <mkdir dir="${basedir}/build/logs"/>
     <mkdir dir="${basedir}/build/pdepend"/>
     <mkdir dir="${basedir}/build/phpdox"/>
+    <mkdir dir="${basedir}/.ant"/>
+    <mkdir dir="target/modules"/>
 
     <antcall target="REPORT" />
 
-  </target>
+<get src="${ivy.url}" dest="${basedir}/.ant/lib/ivy-${ivy.version}.jar" skipexisting="true"/>
+
+<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${basedir}/.ant/lib/ivy-${ivy.version}.jar"/>
+
+  
+  <ivy:retrieve pattern="target/modules/[artifact].[ext]" symlink="true" type="zip"/>
+  <unzip dest=".">
+  <fileset dir="target/modules"/>
+  </unzip><mkdir dir="target/buildlibs"/>
+  <ivy:retrieve pattern="target/buildlibs/[artifact].[ext]" symlink="true" type="jar"/>
+
+</target>
+
+
+
 
   <target name="TEST" depends="Lint, PHPUnit"></target>
 
@@ -149,7 +178,5 @@
   <target name="clean"
         description="clean up">
     <!-- Delete the ${build} and ${dist} directory trees -->
-    <delete dir="${build}"/>
-    <delete dir="${dist}"/>
   </target>
 </project>
