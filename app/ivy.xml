@@ -1,12 +1,10 @@
 <ivy-module version="2.0">
-    <info organisation="com.ibrams" module="magento.ibrams.plugin"/>
+    <info organisation="com.test" module="test.php.project"/>
     <publications>
         <artifact type="zip" ext="zip"/>
         <artifact type="pom" ext="pom"/>
     </publications>
     <dependencies>
-    	<dependency org="com.ibrams" name="build" rev="0.5.0" transitive="false"/>
-        <dependency org="ant-contrib" name="ant-contrib" rev="1.0b3"/>
-        <dependency org="org.tigris.subversion" name="svnant" rev="1.3.1"/>
+    	<dependency org="com.test" name="build" rev="0.5.0" transitive="false"/>
     </dependencies>
 </ivy-module>
