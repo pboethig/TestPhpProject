@@ -15,15 +15,12 @@
 <target name="basic-clean">
    <delete dir="target"/>
    </target>
-<extension-point name="init" depends="clean">
-
-</extension-point>
+<extension-point name="init" depends="clean"></extension-point>
 
 
 <target name="basic-init" extensionOf="init">
-<mkdir dir="${basedir}/.ant/lib"/>
-<tstamp/>
-    <!-- Create the build directory structure used by compile -->
+  <mkdir dir="${basedir}/.ant/lib"/>
+  <tstamp/>
     <mkdir dir="${build}"/>
     <mkdir dir="${basedir}/build/api"/>
     <mkdir dir="${basedir}/build/api/html"/>
@@ -36,11 +33,12 @@
 
     <antcall target="REPORT" />
 
-<get src="${ivy.url}" dest="${basedir}/.ant/lib/ivy-${ivy.version}.jar" skipexisting="true"/>
+</target>
 
-<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${basedir}/.ant/lib/ivy-${ivy.version}.jar"/>
+<target name="retrieve-build-dependencies">
+  <get src="${ivy.url}" dest="${basedir}/.ant/lib/ivy-${ivy.version}.jar" skipexisting="true"/>
 
-  
+  <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${basedir}/.ant/lib/ivy-${ivy.version}.jar"/>
   <ivy:retrieve pattern="target/modules/[artifact].[ext]" symlink="true" type="zip"/>
   <unzip dest=".">
   <fileset dir="target/modules"/>
@@ -48,7 +46,6 @@
   <ivy:retrieve pattern="target/buildlibs/[artifact].[ext]" symlink="true" type="jar"/>
 
 </target>
-
 
 
 
