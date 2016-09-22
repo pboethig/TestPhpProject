@@ -7,7 +7,7 @@
 				 passwd="admin123"/>
     <settings defaultResolver="public"/>
 	<resolvers>
-		<ibiblio name="public" m2compatible="true" useMavenMetadata="false" root="http://localhost:8082/content/repositories/php/"/>
+		<ibiblio name="public" m2compatible="true" useMavenMetadata="false"/>
 		<url name="publish" m2compatible="true">
 		    <artifact pattern="http://localhost:8082/nexus/content/repositories/releases/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"/>
 		</url>
