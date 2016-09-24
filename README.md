@@ -16,7 +16,7 @@ init
 - composer installed
 - ant installed
   - apt-get install ant 
-- nexus installed [use this docker infrastructure]https://github.com/pboethig/PhpBuildSystem()
+- nexus installed [use this docker infrastructure](https://github.com/pboethig/PhpBuildSystem)
   
 
 ### usage:
