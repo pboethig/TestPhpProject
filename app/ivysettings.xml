@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivysettings>
-    <properties file="build.properties"/>
-    <credentials host="http://localhost:8082/" 
-				 realm="Sonatype Nexus Repository Manager" 
-				 username="admin" 
-				 passwd="admin123"/>
-    <settings defaultResolver="public"/>
-	<resolvers>
-		<ibiblio name="public" m2compatible="true" useMavenMetadata="false"/>
-		<url name="publish" m2compatible="true">
-		    <artifact pattern="http://localhost:8082/nexus/content/repositories/releases/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"/>
-		</url>
-	</resolvers>
-	<modules/>
+	<properties file="${user.home}/.ant/config/build.properties"/>
+
+    <credentials host="${repo.host}" 
+     realm="${repo.realm}" 
+     username="${repo.username}" 
+     passwd="${repo.password}"/>
+    <credentials host="${repo.host}" 
+     realm="${repo.realm}" 
+     username="${repo.username}" 
+     passwd="${repo.password}"/>
+ <settings defaultResolver="public"/>
+ <resolvers>
+  <ibiblio 
+  		name="public" m2compatible="true" useMavenMetadata="false" 
+  		root="${repo.protocoll}://${repo.host}/content/repositories/php"/>
+   
+   <url name="publish" m2compatible="true">
+      <artifact 
+	  pattern="${repo.protocoll}://${repo.host}/content/repositories/releases/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"/>
+  </url>
+ </resolvers>
+ <modules/>
 </ivysettings>

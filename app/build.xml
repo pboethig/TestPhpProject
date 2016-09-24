@@ -6,21 +6,47 @@
   <property name="src" location="src"/>
   <property name="build" location="build"/>
   <property name="dist" location="dist"/>
+  <property name="ivy-version" value="2.2.0"/>
+  <property name="ivy.url" value="http://central.maven.org/maven2/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar"/>
 
-<property name="mavenrepo.url" value="http://localhost:8082/content/groups/public/"/><!-- Ivy version this build wants to use -->
-<property name="ivy.version" value="2.2.0"/>
-<property name="ivy.url" value="http://central.maven.org/maven2/org/apache/ivy/ivy/2.2.0/ivy-2.2.0.jar"/>
+<!-- #######################################################################################
+running default task dist
+-->
+<target name="dist">
+  <echo>start</echo>
+      <antcall target="init" />
+      <antcall target="test" />
+      <antcall target="report" />
+      <antcall target="clean-cache" />
+</target>
 
+<!-- #######################################################################################
+Initial task.
+-->
+<target name="init">
+<echo>Initializing and linking ivysettings.xml</echo>
+    <ivy:settings file="ivysettings.xml"/>
+    <antcall target="clean" />
+    <antcall target="create-dirs" />
+    <antcall target="resolve" />
+</target>
 
-<target name="basic-clean">
-   <delete dir="target"/>
-   </target>
-<extension-point name="init" depends="clean"></extension-point>
+<!-- #######################################################################################
+Run test task.
+-->
+<target name="test" depends="Lint, PHPUnit"></target>
 
+<!-- #######################################################################################
+Run quality analizing and reporting tasks
+-->
+<target name="report" depends="phploc,phpcs,pdepend,phpmd,phpcpd,phpdox"></target>
 
-<target name="basic-init" extensionOf="init">
-  <mkdir dir="${basedir}/.ant/lib"/>
-  <tstamp/>
+<!-- #######################################################################################
+Create all needed local direectories
+-->
+<target name="create-dirs">
+<echo>creating local directories</echo>
+<tstamp/>
     <mkdir dir="${build}"/>
     <mkdir dir="${basedir}/build/api"/>
     <mkdir dir="${basedir}/build/api/html"/>
@@ -29,33 +55,43 @@
     <mkdir dir="${basedir}/build/pdepend"/>
     <mkdir dir="${basedir}/build/phpdox"/>
     <mkdir dir="${basedir}/.ant"/>
-    <mkdir dir="target/modules"/>
-
-    <antcall target="REPORT" />
-
+<mkdir dir="target/modules"/>
 </target>
 
-<target name="retrieve-build-dependencies">
-  <get src="${ivy.url}" dest="${basedir}/.ant/lib/ivy-${ivy.version}.jar" skipexisting="true"/>
+<!-- #######################################################################################
+Resolves dependencies defined in ivy.xml
+-->
+<target name="resolve">
+  <echo>Downloading dependencies defined in ivy.xml</echo>
+    <get src="${ivy.url}" dest="${basedir}/.ant/lib/ivy-${ivy.version}.jar" skipexisting="true"/>
 
-  <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${basedir}/.ant/lib/ivy-${ivy.version}.jar"/>
-  <ivy:retrieve pattern="target/modules/[artifact].[ext]" symlink="true" type="zip"/>
-  <unzip dest=".">
-  <fileset dir="target/modules"/>
-  </unzip><mkdir dir="target/buildlibs"/>
-  <ivy:retrieve pattern="target/buildlibs/[artifact].[ext]" symlink="true" type="jar"/>
-
+    <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${basedir}/.ant/lib/ivy-${ivy.version}.jar"/>
+    
+    <ivy:retrieve pattern="target/modules/[artifact].[ext]" symlink="true" type="zip"/>
+    
+    <unzip dest=".">
+      <fileset dir="target/modules"/>
+    </unzip>
+    
+    <mkdir dir="target/buildlibs"/>
+    
+    <ivy:retrieve pattern="target/buildlibs/[artifact].[ext]" symlink="true" type="jar"/>
 </target>
 
 
+<!-- #######################################################################################
+Do your stuff to cleanup before running further task 
+-->
+<target name="clean" description="Cleanup build directory">
+    <echo>Implement your cleaning strategy</echo>
+</target>
 
-  <target name="TEST" depends="Lint, PHPUnit"></target>
 
-
-  <target name="REPORT" depends="TEST, phploc,phpcs,pdepend,phpmd,phpcpd,phpdox"></target>
-
-
-  <target name="Lint" description="Lint Check (Syntax error check)">
+<!-- #######################################################################################
+Check code for syntax errors
+-->
+<target name="Lint" description="Lint Check (Syntax error check)">
+  <echo>Checking code for syntax errors with lint</echo>
     <apply executable="php" failonerror="true">
       <arg value="-l" />
       <fileset dir="${basedir}/src">
@@ -64,10 +100,12 @@
     </apply>   
   </target>
 
+<!-- #######################################################################################
+Analyze php code
+-->
+
   <target name="phploc" description="messure projectsize with PHPLOC">
-
-
-
+  <echo>Messure code with phploc</echo>
       <exec osfamily="unix" executable="${basedir}/vendor/bin/phploc">
           <arg value="--count-tests" />
           <arg value="--log-csv" />
@@ -84,8 +122,11 @@
   </target>
 
 
-
+<!-- #######################################################################################
+Check code style guides
+-->
   <target name="phpcs" description="checks missing codestyles">
+  <echo>Checking code breaking style guoide rules with codesniffer</echo>
     <exec osfamily="windows" executable="${basedir}/vendor/bin/phpcs.bat">
       <arg value="--report=checkstyle" />
       <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
@@ -101,7 +142,11 @@
       </exec>
   </target>
 
+<!-- #######################################################################################
+Check code for dependencies
+-->
   <target name="pdepend" description="checks dependencies">
+  <echo>Checking code dependencies</echo>
     <exec osfamily="windows" executable="${basedir}/vendor/bin/pdepend.bat">
       <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
       <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
@@ -116,7 +161,12 @@
       </exec>
   </target>
 
+<!-- #######################################################################################
+Check code codemess
+-->
+
   <target name="phpmd" description="checks codemess">
+  <echo>Checking for codemess</echo>
     <exec osfamily="windows"  executable="${basedir}/vendor/bin/phpmd.bat">
       <arg path="${basedir}/src" />
       <arg value="xml" />
@@ -132,7 +182,11 @@
       </exec>
   </target>
 
+<!-- #######################################################################################
+Check code copy and paste 
+-->
   <target name="phpcpd" description="find douplicate code">
+  <echo>Checking for copy and paste code</echo>
     <exec osfamily="windows" executable="${basedir}/vendor/bin/phpcpd.bat">
       <arg value="--log-pmd" />
       <arg value="${basedir}/build/logs/pmd-cpd.xml"/>
@@ -145,15 +199,22 @@
       </exec>
   </target>
 
+<!-- #######################################################################################
+create documentation
+-->
   <target name="phpdox" description="Generate API Documentation">
+  <echo>generating api documentation</echo>
     <exec osfamily="windows" executable="${basedir}/vendor/bin/phpdox.bat">
     </exec>
       <exec osfamily="unix" executable="${basedir}/vendor/bin/phpdox">
       </exec>
-
   </target>
 
+<!-- #######################################################################################
+Run phpunit
+-->
   <target  name="PHPUnit" description="Run PHP Unit">
+  <echo>Running phpunit</echo>
     <exec osfamily="unix" executable="${basedir}/vendor/bin/phpunit" failonerror="true">
       <arg value="--configuration"/>
       <arg value="${basedir}/phpunit.xml"/>
@@ -164,16 +225,54 @@
       </exec>
   </target>
 
+<!-- #######################################################################################
+Package the release
+-->
    <target name="package" description="package the release">
+   <echo>Packaging release ${basedir}/../release/release-${TAG_TO_BUILD}.zip</echo>
       <zip 
 	destfile="${basedir}/../release/release-${TAG_TO_BUILD}.zip"
         basedir="." excludes="vendor/**, release/**"/>
-  </target>
 
-  <target name="dist">
-  </target> 
-  <target name="clean"
-        description="clean up">
-    <!-- Delete the ${build} and ${dist} directory trees -->
-  </target>
+
+ <echo>Packaging release ${basedir}/../release/release-${TAG_TO_BUILD}.zip</echo>
+      </target>
+
+<!-- #######################################################################################
+Release the package in Nexus
+-->
+<target xmlns:ivy="antlib:org.apache.ivy.ant" name="release-nexus" depends="init, resolve">
+        <ivy:settings file="ivysettings.xml"/>
+        <property name="ivy.pom.version" value="${TAG_TO_BUILD}"/>
+        <ivy:makepom ivyfile="ivy.xml" pomfile="target/pom/${ivy.module}.pom">
+            <mapping conf="*" scope="compile"/>
+        </ivy:makepom>
+
+           <zip destfile="target/zip/${ivy.module}.zip">
+            <fileset dir="${basedir}">
+                <include name="**"/>
+                <include name="target/zip/package.xml"/>
+                <exclude name="target/**"/>
+                <exclude name="build/**"/>
+                <exclude name="ivy*.xml"/>
+                <exclude name="build.xml"/>
+                <exclude name=".idea/**"/>
+                <exclude name=".git/**"/>
+                <exclude name="vendor/**"/>
+            </fileset>
+        </zip>
+ 
+
+        <ivy:publish resolver="publish" pubrevision="${TAG_TO_BUILD}" publishivy="false">
+            <artifacts pattern="target/[type]/[artifact].[ext]" />
+        </ivy:publish>
+</target>
+
+<!-- #######################################################################################
+Call cleaning after building
+-->
+<target name="clean-cache" description="Clean and purge caches">
+    <echo>Deleting ant and ivy cachefiles now</echo>
+    <ivy:cleancache/>
+</target>
 </project>

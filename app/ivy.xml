@@ -1,5 +1,5 @@
 <ivy-module version="2.0">
-    <info organisation="com.test" module="test.php.project"/>
+    <info organisation="com-test" module="coolsoftwaremodule"/>
     <publications>
         <artifact type="zip" ext="zip"/>
         <artifact type="pom" ext="pom"/>
