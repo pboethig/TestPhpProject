@@ -241,8 +241,7 @@ Package the release
 <!-- #######################################################################################
 Release the package in Nexus
 -->
-<target xmlns:ivy="antlib:org.apache.ivy.ant" name="release-nexus" depends="init, resolve">
-        <ivy:settings file="ivysettings.xml"/>
+<target xmlns:ivy="antlib:org.apache.ivy.ant" name="release-nexus" depends="dist, resolve">
         <property name="ivy.pom.version" value="${TAG_TO_BUILD}"/>
         <ivy:makepom ivyfile="ivy.xml" pomfile="target/pom/${ivy.module}.pom">
             <mapping conf="*" scope="compile"/>
@@ -253,7 +252,8 @@ Release the package in Nexus
                 <include name="**"/>
                 <include name="target/zip/package.xml"/>
                 <exclude name="target/**"/>
-                <exclude name="build/**"/>
+                <exclude name="target/**"/>
+                <exclude name=".ant/**"/>
                 <exclude name="ivy*.xml"/>
                 <exclude name="build.xml"/>
                 <exclude name=".idea/**"/>
