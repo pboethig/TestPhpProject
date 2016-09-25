@@ -26,10 +26,10 @@ Initial task.
 -->
 <target name="init">
 <echo>Initializing and linking ivysettings.xml</echo>
-    <ivy:settings file="ivysettings.xml"/>
-    <antcall target="clean" />
     <antcall target="create-dirs" />
     <antcall target="resolve" />
+    <ivy:settings file="ivysettings.xml"/>
+    <antcall target="clean" />
 </target>
 
 <!-- #######################################################################################
