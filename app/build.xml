@@ -9,10 +9,6 @@
   <property name="ivy.version" value="2.2.0"/>
   <property name="ivy.url" value="http://central.maven.org/maven2/org/apache/ivy/ivy/2.2.0/ivy-${ivy.version}.jar"/>
 
-    <echo>${ivy.url}</echo>
-    <echo>${ivy.version}</echo>
-
-
 
 <!-- #######################################################################################
 running default task dist
