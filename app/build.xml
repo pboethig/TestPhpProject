@@ -256,10 +256,10 @@ Package the release
    <echo>Packaging release ${basedir}/../release/release-${TAG_TO_BUILD}.zip</echo>
       <zip 
 	destfile="${basedir}/../release/release-${TAG_TO_BUILD}.zip"
-        basedir="." excludes="vendor/**, release/**"/>
+        basedir="." excludes="vendor/**, release/**, .git/**"/>
 
 
- <echo>Packaging release ${basedir}/../release/release-${TAG_TO_BUILD}.zip</echo>
+        <echo>Packaging release ${basedir}/../release/release-${TAG_TO_BUILD}.zip</echo>
       </target>
 
 <!-- #######################################################################################
