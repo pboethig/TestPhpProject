@@ -22,7 +22,7 @@
 ### usage:
 - clone project
 - cd to app
-- run 
+
 ```bash composer install
 
 - run "ant init" to run tests and metrics
