@@ -6,8 +6,13 @@
   <property name="src" location="src"/>
   <property name="build" location="build"/>
   <property name="dist" location="dist"/>
-  <property name="ivy-version" value="2.2.0"/>
-  <property name="ivy.url" value="http://central.maven.org/maven2/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar"/>
+  <property name="ivy.version" value="2.2.0"/>
+  <property name="ivy.url" value="http://central.maven.org/maven2/org/apache/ivy/ivy/2.2.0/ivy-${ivy.version}.jar"/>
+
+    <echo>${ivy.url}</echo>
+    <echo>${ivy.version}</echo>
+
+
 
 <!-- #######################################################################################
 running default task dist
@@ -54,7 +59,7 @@ Create all needed local direectories
     <mkdir dir="${basedir}/build/logs"/>
     <mkdir dir="${basedir}/build/pdepend"/>
     <mkdir dir="${basedir}/build/phpdox"/>
-    <mkdir dir="${basedir}/.ant"/>
+    <mkdir dir="${basedir}/.ant/lib"/>
 <mkdir dir="target/modules"/>
 </target>
 
