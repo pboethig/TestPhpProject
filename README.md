@@ -25,17 +25,21 @@
 
 ```sh 
 composer install
+```
+Run init
+```sh
 ant init
+```
 
+### or run a release
+```sh
+- run "ant package -DTAG_TO_BUILD=1.2.3.7"
+```
 
-
-### run a release
-- run "ant package -DTAG_TO_BUILD=1.2.3.7" to build a release in folder "releases" and under target/zip
-
-### run a release and deploy to nexus
-
-- run "ant package -DTAG_TO_BUILD=1.2.3.8 release-nexus" to publish your release to a nexus artifact manager
-
+### or run a release and deploy to nexus
+```
+ant package -DTAG_TO_BUILD=1.2.3.8 release-nexus
+```
 
 ### sample build.properties
 ###### you have to store a build.properties under ~/.ant/config/build.properties witb following code
