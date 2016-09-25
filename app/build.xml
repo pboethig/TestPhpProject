@@ -84,6 +84,7 @@ Do your stuff to cleanup before running further task
 -->
 <target name="clean" description="Cleanup build directory">
     <echo>Implement your cleaning strategy</echo>
+     <delete dir="${basedir}/target"/>
 </target>
 
 
