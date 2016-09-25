@@ -25,9 +25,15 @@
 
 ```sh 
 composer install
+ant init
 
-- run "ant init" to run tests and metrics
+
+
+### run a release
 - run "ant package -DTAG_TO_BUILD=1.2.3.7" to build a release in folder "releases" and under target/zip
+
+### run a release and deploy to nexus
+
 - run "ant package -DTAG_TO_BUILD=1.2.3.8 release-nexus" to publish your release to a nexus artifact manager
 
 
