@@ -21,12 +21,13 @@
 ###### you have to store a build.properties under ~/.ant/config/build.properties witb following code
 ```ini
 repo.protocoll=http
-repo.host=localhost
-repo.port=8082
+repo.host=dockergitlab_nexus_1
+repo.port=8081
 repo.realm=Sonatype Nexus Repository Manager
 repo.username=admin
 repo.password=admin123
 ```
+Change your repo.host to your nexus host
   
 
 ## usage:

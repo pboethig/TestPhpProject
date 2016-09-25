@@ -13,7 +13,7 @@
         <D>1</D>
       </Stats>
       <ConcreteClasses>
-        <Class sourceFile="/var/www/html/lektionen/docker/testPHPProject/TestPhpProject/app/src/Math.php">Math</Class>
+        <Class sourceFile="/var/www/html/lektionen/docker/linking/dockerlessons/testproject2/app/src/Math.php">Math</Class>
       </ConcreteClasses>
       <AbstractClasses/>
       <DependsUpon/>
