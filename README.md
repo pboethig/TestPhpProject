@@ -22,7 +22,8 @@
 ### usage:
 - clone project
 - cd to app
-- run ```bash composer install
+- run 
+```bash composer install
 
 - run "ant init" to run tests and metrics
 - run "ant package -DTAG_TO_BUILD=1.2.3.7" to build a release in folder "releases" and under target/zip
