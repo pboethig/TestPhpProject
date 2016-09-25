@@ -17,16 +17,27 @@
   - apt-get install ant 
 - nexus installed [use this docker infrastructure](https://github.com/pboethig/PhpBuildSystem)
   - installs jenkins, gitlab, nexus, a webserver (jenkins lave) and some webtools as single container in a docker network
+
+###### you have to store a build.properties under ~/.ant/config/build.properties witb following code
+```ini
+repo.protocoll=http
+repo.host=localhost
+repo.port=8082
+repo.realm=Sonatype Nexus Repository Manager
+repo.username=admin
+repo.password=admin123
+```
   
 
-### usage:
+## usage:
 - clone project
 - cd to app
 
+### resolve dependency
 ```sh 
 composer install
 ```
-Run init
+### init ant
 ```sh
 ant init
 ```
@@ -40,14 +51,4 @@ ant init
 ```
 ant package -DTAG_TO_BUILD=1.2.3.8 release-nexus
 ```
-
-### sample build.properties
-###### you have to store a build.properties under ~/.ant/config/build.properties witb following code
-```ini
-repo.protocoll=http
-repo.host=localhost
-repo.port=8082
-repo.realm=Sonatype Nexus Repository Manager
-repo.username=admin
-repo.password=admin123
 
