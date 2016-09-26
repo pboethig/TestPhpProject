@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<phpunit bootstrap="./vendor/autoload.php">
+<phpunit bootstrap="./vendor/autoload.php" codecoverage="true" haltonfailure="true" haltonerror="true">
+  <formatter type="clover" usefile="false"/>
     <testsuites>
         <testsuite name="The project's test suite">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
-
+<filter>
+        <whitelist>
+            <directory>./src</directory>                       
+        </whitelist>
+    </filter>
 </phpunit>

@@ -27,7 +27,6 @@ repo.realm=Sonatype Nexus Repository Manager
 repo.username=admin
 repo.password=admin123
 ```
-Change your repo.host to your nexus host
   
 
 ## usage:
